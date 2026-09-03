@@ -1,0 +1,336 @@
+# Product Spec — Supplier Sustainability Portal 2026
+
+**Version:** 1.0
+**Date:** 2026-09-03
+**Author:** Harm
+**Status:** Confirmed
+
+---
+
+> **Naming note:** This project shares its name with an existing, separately-speced project (the in-tool submission portal — Door 1/Door 2, v2.0, D2+A1) already in progress for The Corporate. This is a deliberate choice by the builder, made and confirmed during the Tool Architect interview, despite the collision risk on GitHub repo name and Netlify site name. **Before creating the GitHub repo or Netlify site for this project, the builder must disambiguate the repo/site name** (e.g. append `-landing` or `-onboarding`) to avoid overwriting or colliding with the other project's repo/site. This is also logged as a blocking open question in Section 15.
+
+---
+
+## Section 1 — Tool Summary
+
+**Tool name:** Supplier Sustainability Portal 2026
+
+**What it does:** A single, static public landing page that onboards Tier 1 suppliers into The Corporate's 2026 Supplier Engagement Programme. It explains why the programme exists, how the Smart Intake model works, and routes each supplier to one of two paths — EcoVadis or the offline questionnaire — via a simple interactive decision tree. It collects no data and stores nothing.
+
+**Who uses it:** The Corporate's 500+ Tier 1 suppliers, arriving via a direct link (distributed by Procurement and Account Managers — not the Procurement Portal itself, which is a separate system).
+
+**Why it exists:** Suppliers who land on this page today have no self-contained way to understand the programme, see why it matters, and find the right next step without someone walking them through it. This page makes the ask, the rationale, and the two response paths self-explanatory.
+
+**Build status:** First build — no prior version. Standalone from, and unrelated in its build to, the existing "Supplier Sustainability Portal 2026" submission-portal project (see naming note above).
+
+---
+
+## Section 2 — Classification
+
+### Data Model
+
+**Decision:** D1 — Hardcoded
+
+| Label | What it means | This tool? |
+|-------|--------------|-----------|
+| D1 — Hardcoded | All data is written into the code by the developer. Users cannot input anything that persists. The tool displays what the developer put in. | **Yes** |
+| D2 — Session | Data enters the tool during use and disappears when the tab closes. No database. Covers both uploaded files and form inputs. | No |
+| D3 — Persisted | Data is written to a database and survives after the session ends. Supabase is required. | No |
+
+**Reason:** The page is entirely informational plus one client-side toggle (the EcoVadis Yes/No decision tree). No form fields, no file uploads processed by the tool, nothing a user types or submits is ever captured or stored — all content is fixed at build time.
+
+**D3 triggers — none apply:**
+- [ ] Data must be retrievable after the session ends
+- [ ] Multiple sessions contribute to the same dataset
+- [ ] An audit trail or history is needed
+- [ ] Data submitted by one person must be visible to another
+- [ ] Results must be accessible via a URL after the session ends
+- [ ] Files uploaded by users must be stored and retrievable later
+
+---
+
+### Access Model
+
+**Decision:** A1 — Public
+
+| Label | What it means | This tool? |
+|-------|--------------|-----------|
+| A1 — Public | Anyone with the URL can use it. No login, no account required. | **Yes** |
+| A2 — Authentication | Users must log in. All logged-in users see the same thing and have the same permissions. | No |
+| A3 — Authorization | Users must log in and have different roles. Different roles see different data or have different permissions. | No |
+
+**Reason:** This is sent directly to any of 500+ external suppliers with a link — there is no user list to manage and nothing to gate. Public, no-login access is correct.
+
+---
+
+### Tier
+
+**Tier:** 1
+
+| Tier | D+A combination | Stack | Deployment |
+|------|----------------|-------|------------|
+| **1** | **D1+A1** | **Netlify only** | **Netlify** |
+| 2 | D3+A1 | Netlify + Supabase (no auth) | Netlify |
+| 3 | D3+A2 or D3+A3 | Netlify + Supabase (auth + RLS) | Netlify |
+
+---
+
+### Standalone or Stack
+
+**This tool is:** Standalone — it does not share a database with any other tool, and shares no infrastructure with the other "Supplier Sustainability Portal 2026" project (the in-tool submission portal). They are unrelated builds that happen to have overlapping names (see naming note above).
+
+---
+
+## Section 3 — Arms
+
+None active. This is a pure content page with one client-side interaction (the decision-tree toggle) — no server-side capability is required.
+
+### AI API Arm
+
+**Active:** No
+
+### Export Arm
+
+**Active:** No
+
+> The "Download the questionnaire" action in Section 8 links directly to a static, pre-existing file (`The_Corporate_Supplier_Questionnaire_2026.xlsx`, uploaded by the builder) hosted alongside the site. It is not generated by the tool, so this is a static asset link, not the Export arm.
+
+### Email Arm
+
+**Active:** No
+
+> The return email address for the completed questionnaire (`supplier.assessment@the-corporate.com`) is displayed as text (and as a `mailto:` link) for the supplier's own email client to handle. The tool does not send any email itself.
+
+### Scheduled Automation Arm
+
+**Active:** No
+
+---
+
+## Section 4 — Stack and Deployment
+
+### All Tiers
+
+| Detail | Answer |
+|--------|--------|
+| Frontend framework | HTML/CSS/JS — single view, minimal interaction (one toggle), no need for React/Vite/Tailwind |
+| Deployment target | Netlify |
+| Netlify MCP | Active — Netlify is connected via Claude Desktop Connectors. Claude Code will create the site, set environment variables (none required for this tool), and deploy automatically. |
+
+**GitHub — pre-build requirement:**
+The builder creates the GitHub repo before the first Claude Code session, using a name that disambiguates it from the existing submission-portal repo (see naming note at the top of this document). `product-spec.md`, `CLAUDE.md`, and `PROGRESS.md` must be uploaded to the repo root before Claude Code opens.
+
+### Supabase project
+
+N/A — Tier 1 tool, no database.
+
+### Stack
+
+N/A — standalone tool, not part of a shared-database stack.
+
+---
+
+## Section 5 — Data Architecture
+
+N/A — Data Model is D1. No data is collected or stored by this tool.
+
+---
+
+## Section 6 — Access and Permissions (RLS)
+
+N/A — Access Model is A1, no database, no RLS.
+
+---
+
+## Section 7 — GDPR
+
+**GDPR outcome:** Not applicable — confirmed during the interview that this tool collects no personal data through its forms or uploads. There are no forms on this page; the only user input is the Yes/No toggle, which is not persisted anywhere and carries no personal data.
+
+---
+
+## Section 8 — Screen and UI Structure
+
+Single page, one continuous scroll, sections in this order:
+
+### 1. Hero
+- **Purpose:** Establish what the portal is and land the scale of the ask immediately.
+- **What is visible:** Headline stating this is the Supplier Sustainability Portal for The Corporate's 2026 Supplier Engagement Programme; four large stat callouts: **690,000 tCO2e** total footprint (2023), **71%** of it in Scope 3 (our value chain), **net-zero by 2045**, **500+** Tier 1 suppliers.
+- **User actions:** Scroll.
+- **What happens next:** Moves into the "Why" section.
+
+### 2. Why
+- **Purpose:** Explain the rationale in plain, strategic language, framed as partnership.
+- **What is visible:** Short narrative drawn from the Program Charter and Strategy — value-chain emissions exposure, the net-zero ambition, CSRD reporting readiness, and a shared-journey framing. Priority themes referenced in plain language only: climate, pollution, water, circular economy, people, governance. No ESRS codes, no "E1/E2/S2/G1" labels, no regulation acronyms named on the page.
+- **User actions:** Scroll.
+- **What happens next:** Moves into "How it works."
+
+### 3. How it works
+- **Purpose:** Explain the Smart Intake model before asking the supplier to act.
+- **What is visible:** Explanation that existing standards are recognised — a valid EcoVadis scorecard exempts a supplier from the full assessment — and that everyone else completes one single, structured assessment. No mention of any in-portal form or CSV upload capability (explicitly out of scope for this build — see Section 12).
+- **User actions:** Scroll.
+- **What happens next:** Moves into the decision tree.
+
+### 4. What you do now — decision tree
+- **Purpose:** Route the supplier to the correct next action based on one qualifying question.
+- **What is visible:**
+  - Question: "Do you hold a valid EcoVadis scorecard issued within the last 12 months?"
+  - Two buttons: **Yes** / **No**
+  - Below, two paths shown side by side at all times:
+    - **Path A — EcoVadis:** instructions to submit or share the scorecard, with a link out to ecovadis.com (placeholder — swap for The Corporate's specific EcoVadis network URL if one exists; flagged in Section 15).
+    - **Path B — Full assessment:** a download link/button for the exact uploaded file `The_Corporate_Supplier_Questionnaire_2026.xlsx` (unmodified), with instructions to complete it offline and return it to `supplier.assessment@the-corporate.com` (shown as visible text and as a `mailto:` link).
+  - A reset control to clear the Yes/No selection and return both paths to their neutral state.
+- **User actions:** Click Yes or No; the matching path is visually highlighted (e.g. full opacity, border/background emphasis) and the non-matching path is visibly dimmed (e.g. reduced opacity, muted styling) but stays on screen and remains clickable/readable — nothing is hidden. Click Reset to clear the selection back to neutral (both paths shown equally, no highlight/dim).
+- **What happens next:** Supplier either clicks through to EcoVadis, or downloads the questionnaire and later emails it back — both destinations are external to this tool.
+
+### 5. What happens next — programme timeline
+- **Purpose:** Set expectations on the process ahead.
+- **What is visible:** Four-step timeline drawn from the Program Charter: **Portal Launch** (April 2026), **Data Submission** (deadline 30 September 2026), **Review & Scoring** (Q4 2026), **Partnership Plans** (Q1 2027) — each with the one-line description from the charter's timeline table.
+- **User actions:** Scroll.
+- **What happens next:** Moves into resources/footer.
+
+### 6. Resources row
+- **Purpose:** Give suppliers easy access to the governing documents and a contact point.
+- **What is visible:** Three items — **Supplier Code of Conduct** (links to the hosted PDF, uploaded by the builder), **Global Environmental Policy** (links to the hosted PDF, uploaded by the builder), and an **EHS/compliance contact** shown as `supplier.compliance@the-corporate.com` (proposed by the architect, following the same address pattern used in the Code of Conduct; not a live confirmed EHS help desk).
+- **User actions:** Click through to either PDF, or click the mailto link.
+- **What happens next:** N/A — terminal actions.
+
+### 7. Footer
+- **Purpose:** Brand close and confidentiality notice.
+- **What is visible:** `[C] The Corporate` brand footer (CSS-recreated monogram, no image file) and a short confidentiality line consistent with the source documents' "Confidential · Internal use only" / programme-toolkit framing, adapted to be supplier-facing (this page itself is not confidential, but the programme materials referenced are governed documents).
+- **User actions:** None.
+- **What happens next:** N/A.
+
+---
+
+## Section 9 — Logic and Calculations
+
+N/A beyond the decision-tree toggle, which is pure UI state with no calculation:
+
+**What is calculated or scored:** Nothing is calculated. The only logic is a two-state UI toggle.
+
+**Inputs:** One click — Yes or No — to the EcoVadis qualifying question.
+
+**Formula or rules:**
+- Default state (before any click): both Path A and Path B shown at equal visual weight, no highlight or dim.
+- Click "Yes": Path A gets highlighted styling, Path B gets dimmed styling.
+- Click "No": Path B gets highlighted styling, Path A gets dimmed styling.
+- Click "Reset": return to default state.
+- State is UI-only — not persisted, not sent anywhere, resets on page reload.
+
+**Output:** Visual emphasis change only (highlight/dim). No number, grade, or recommendation is generated.
+
+**Edge cases:** None applicable — a binary toggle with no external inputs has no missing/invalid/out-of-range cases.
+
+---
+
+## Section 10 — Brand and Visual Direction
+
+**Brand reference:** No brand skill file — described below using the established `[C] The Corporate` brand kit already in use on the related submission-portal project.
+
+- **Primary colour:** Black `#000000`
+- **Secondary colours:** Cream `#EAE4D5`, warm gray `#F2F2F2`, taupe `#B6B09F`
+- **Fonts:** Georgia for headings, Arial for body text
+- **Logo:** `[C]` boxed monogram — recreated in CSS, no image file
+
+**Visual feel:** Professional and corporate, consistent with the source documents' board-ready, confidential-document styling — restrained, high-contrast, data-forward for the hero stats.
+
+**Reference or inspiration:** Consistent with the visual direction already established for The Corporate's other AILab-built tools.
+
+---
+
+## Section 11 — API and Credentials
+
+None required. No external services, no API keys, no environment variables for this tool.
+
+| Service | What it does in this tool | Key required | Where key is stored |
+|---------|--------------------------|-------------|-------------------|
+| N/A | No external services used | N/A | N/A |
+
+**Credentials readiness:** N/A — no active arms, no Supabase, no third-party services.
+
+---
+
+## Section 12 — Out of Scope — Phase 2
+
+| Deferred feature | Reason it is deferred |
+|-----------------|----------------------|
+| In-tool submission (Door 1 guided form / Door 2 file upload with validation) | This is a separate, already-speced project (the existing "Supplier Sustainability Portal 2026" submission portal, v2.0, D2+A1) — not part of this build |
+| CSV parsing, validation, or any client-side file processing | Explicitly excluded by the builder for this page — see instruction to ignore built-in questionnaire/CSV upload |
+| In-tool Scope 3 calculation, automated supplier scoring | Out of scope this programme phase per the Program Charter |
+| Supplier accounts with saved progress | Out of scope this programme phase per the Program Charter |
+| Programmatic EcoVadis validation | Out of scope this programme phase per the Program Charter |
+| A live EHS help desk link | Not available at spec time; using the compliance email as a placeholder, consistent with the approach on the related project |
+| The Corporate's specific EcoVadis network URL (if one exists, distinct from ecovadis.com generally) | Not available at spec time; using the general ecovadis.com link as a placeholder |
+
+---
+
+## Section 13 — Acceptance Criteria
+
+| # | What to verify | Expected result | Done? |
+|---|---------------|-----------------|-------|
+| 1 | Hero section loads with all four stat callouts | 690,000 tCO2e, 71%, 2045, 500+ all render correctly and match source figures exactly | [ ] |
+| 2 | Why section renders with no reporting-standard codes visible | No ESRS/CSRD code labels (E1, E2, S2, G1, etc.) appear anywhere on the page | [ ] |
+| 3 | How it works section explains the Smart Intake model | EcoVadis exemption and single-assessment framing both present, no mention of in-tool submission or CSV upload | [ ] |
+| 4 | Decision tree default state | Both Path A and Path B visible at equal weight before any click | [ ] |
+| 5 | Decision tree — Yes click | Path A highlighted, Path B visibly dimmed but still present and readable | [ ] |
+| 6 | Decision tree — No click | Path B highlighted, Path A visibly dimmed but still present and readable | [ ] |
+| 7 | Decision tree — Reset | Returns to default equal-weight state | [ ] |
+| 8 | Path A EcoVadis link | Opens ecovadis.com (or replacement URL) in a new tab | [ ] |
+| 9 | Path B questionnaire download | Downloads the exact uploaded `The_Corporate_Supplier_Questionnaire_2026.xlsx` file, unmodified | [ ] |
+| 10 | Path B return instructions | `supplier.assessment@the-corporate.com` shown as visible text and as a working `mailto:` link | [ ] |
+| 11 | Timeline section | All four milestones present with correct dates: Apr 2026, 30 Sep 2026, Q4 2026, Q1 2027 | [ ] |
+| 12 | Resources row | Code of Conduct PDF and Environmental Policy PDF both link to the correct hosted files; EHS contact shows the compliance email | [ ] |
+| 13 | Footer | `[C]` monogram renders correctly in CSS (no broken image), confidentiality line present | [ ] |
+| 14 | No data collection anywhere | No form fields, no upload inputs, no network calls that transmit user data exist on the page | [ ] |
+| 15 | Deploys and is accessible | Live Netlify URL loads correctly on desktop and mobile | [ ] |
+
+---
+
+## Section 14 — Build Path
+
+**This tool's tier:** Tier 1
+
+### Pre-build steps — complete before opening Claude Code
+
+- [x] Tool Architect skill — interview complete, this spec is written and confirmed by the builder
+- [ ] Project Governor skill — CLAUDE.md and PROGRESS.md produced from this spec
+- [ ] GitHub repo created by the builder, **named to disambiguate from the existing submission-portal repo** (see naming note at the top of this document)
+- [ ] product-spec.md uploaded to the GitHub repo root
+- [ ] CLAUDE.md uploaded to the GitHub repo root
+- [ ] PROGRESS.md uploaded to the GitHub repo root
+- [ ] `The_Corporate_Supplier_Questionnaire_2026.xlsx`, the Supplier Code of Conduct PDF, and the Global Environmental Policy PDF uploaded to the repo (for Claude Code to place as static assets)
+- [ ] No brand skill file — brand direction is described in Section 10
+- [ ] Netlify MCP active — no manual Netlify connection step needed
+- [ ] No credentials required for this tool
+
+### Tier 1 — build session
+
+- [ ] Open Claude Code in the project folder (GitHub repo connected to Netlify)
+- [ ] Claude Code runs First Session Setup: creates docs/, moves reference files (questionnaire + PDFs)
+- [ ] Claude Code reads product-spec.md, CLAUDE.md, and PROGRESS.md
+- [ ] Claude Code builds the tool
+- [ ] Test locally before deploying
+- [ ] Netlify MCP active: Claude Code deploys automatically (no environment variables needed)
+
+---
+
+## Section 15 — Open Questions
+
+| Question | Who answers it | Blocking? |
+|----------|---------------|-----------|
+| Repo/site naming collision with the existing "Supplier Sustainability Portal 2026" submission-portal project — what disambiguated name will actually be used for this repo and Netlify site? | Builder | Yes — must resolve before build |
+| Does The Corporate have a specific EcoVadis network URL for suppliers to use, rather than the generic ecovadis.com? | Builder | No — can resolve during or after build, swap link later |
+| Is there a real EHS help desk link/contact to replace the compliance-email placeholder? | Builder | No — can resolve during or after build |
+| Is `supplier.assessment@the-corporate.com` the correct return address, or should it match the existing `supplier.compliance@the-corporate.com` used elsewhere? | Builder | No — can resolve during or after build |
+
+---
+
+## Section 16 — Tool Version History
+
+| Version | Date | What changed in the tool |
+|---------|------|--------------------------|
+| v1.0 | 2026-09-03 | Initial build |
+
+---
+
+*This spec is written for Claude Code. It assumes zero prior context. Every decision, rule, and requirement must be explicit enough that the builder can hand this document to Claude Code without a single verbal explanation.*
