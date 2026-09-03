@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supplier Sustainability Portal 2026 — The Corporate</title>
+  <meta
+    name="description"
+    content="Onboarding portal for The Corporate's 2026 Supplier Engagement Programme. Understand the programme, and find your next step — EcoVadis or the sustainability assessment."
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#action">Skip to what you do now</a>
+
+  <!-- ============================= HERO ============================= -->
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div class="brand">
+        <span class="monogram" aria-hidden="true">C</span>
+        <span class="brand-name">The Corporate</span>
+      </div>
+
+      <p class="eyebrow">2026 Supplier Engagement Programme</p>
+      <h1 class="hero-title">Supplier Sustainability Portal</h1>
+      <p class="hero-lead">
+        A single, shared programme to onboard our Tier&nbsp;1 suppliers.
+        Understand why it matters, how it works, and find the one next step
+        that applies to you.
+      </p>
+
+      <dl class="stats" aria-label="The Corporate at a glance">
+        <div class="stat">
+          <dt class="stat-num">690,000</dt>
+          <dd class="stat-label">tCO<sub>2</sub>e total footprint (2023)</dd>
+        </div>
+        <div class="stat">
+          <dt class="stat-num">71%</dt>
+          <dd class="stat-label">of it in our value chain</dd>
+        </div>
+        <div class="stat">
+          <dt class="stat-num">2045</dt>
+          <dd class="stat-label">net-zero target year</dd>
+        </div>
+        <div class="stat">
+          <dt class="stat-num">500+</dt>
+          <dd class="stat-label">Tier&nbsp;1 suppliers</dd>
+        </div>
+      </dl>
+
+      <a class="btn btn-primary hero-cta" href="#action">See what you do now →</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================= WHY ============================= -->
+    <section class="section section-why" aria-labelledby="why-title">
+      <div class="wrap">
+        <p class="section-eyebrow">Why this matters</p>
+        <h2 id="why-title">Reaching net-zero runs through our value chain</h2>
+
+        <div class="prose">
+          <p class="lead-para">
+            71% of The Corporate's carbon footprint sits in our value chain — in
+            the goods and services we buy, not inside our own plants. That makes
+            our suppliers the single biggest lever we have to reach net-zero by
+            2045. We can't get there without you.
+          </p>
+          <p>
+            This programme gives us a clear, reliable picture of how our
+            suppliers are performing on sustainability, and a practical way to
+            act on it together. It's also how we meet our growing sustainability
+            reporting obligations — we can't report what we can't see.
+          </p>
+          <p>
+            Just as important: this is the start of a working relationship, not a
+            one-off audit. Strong performers earn preferential standing, and we
+            partner with suppliers to improve over time.
+          </p>
+        </div>
+
+        <div class="themes">
+          <p class="themes-intro">Across the programme we focus on six shared priorities:</p>
+          <ul class="theme-list">
+            <li>Climate</li>
+            <li>Pollution</li>
+            <li>Water</li>
+            <li>Circular economy</li>
+            <li>People</li>
+            <li>Governance</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= HOW IT WORKS ========================= -->
+    <section class="section section-how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="section-eyebrow">How it works</p>
+        <h2 id="how-title">One programme. One assessment. No wasted effort.</h2>
+
+        <div class="prose">
+          <p class="lead-para">
+            We call it Smart Intake. Long, repetitive questionnaires sent to
+            everyone produce fatigue and unreliable data — so we've built the
+            programme around a simple efficiency rule.
+          </p>
+          <p>
+            We recognise the work you've already done. A valid EcoVadis scorecard
+            already demonstrates your performance, so those suppliers are exempt
+            from our full assessment — just share it. Everyone else completes one
+            single, well-structured assessment. Once, clearly.
+          </p>
+        </div>
+
+        <div class="how-cards">
+          <div class="how-card">
+            <h3>Recognise existing standards</h3>
+            <p>
+              A valid EcoVadis scorecard demonstrates performance already. Those
+              suppliers submit it and move on — no questionnaire needed.
+            </p>
+          </div>
+          <div class="how-card">
+            <h3>Ask once, then partner</h3>
+            <p>
+              The assessment is the start of a working relationship, not a one-off
+              audit. Strong performers earn preferential standing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== DECISION TREE ======================== -->
+    <section class="section section-action" id="action" aria-labelledby="action-title">
+      <div class="wrap">
+        <p class="section-eyebrow">What you do now</p>
+        <h2 id="action-title">Answer one question to find your path</h2>
+
+        <div class="decider">
+          <p class="decider-question" id="decider-question">
+            Do you hold a valid EcoVadis scorecard issued within the last 12 months?
+          </p>
+
+          <div class="decider-controls" role="group" aria-labelledby="decider-question">
+            <button type="button" class="btn btn-choice" id="btn-yes" aria-pressed="false">
+              Yes
+            </button>
+            <button type="button" class="btn btn-choice" id="btn-no" aria-pressed="false">
+              No
+            </button>
+            <button type="button" class="btn btn-reset" id="btn-reset" hidden>
+              Reset
+            </button>
+          </div>
+
+          <p class="decider-status" id="decider-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="paths">
+          <!-- Path A — EcoVadis -->
+          <article class="path" id="path-a" data-path="a">
+            <div class="path-head">
+              <span class="path-tag">Path A</span>
+              <span class="path-when">If you have a valid scorecard</span>
+            </div>
+            <h3 class="path-title">Share your EcoVadis scorecard</h3>
+            <p class="path-body">
+              Submit or share your current EcoVadis scorecard with your Account
+              Manager. A valid scorecard satisfies the assessment in full — you
+              don't need to complete the questionnaire. Validations are processed
+              on a rolling basis.
+            </p>
+            <a
+              class="btn btn-outline"
+              href="https://www.ecovadis.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Go to EcoVadis →
+            </a>
+          </article>
+
+          <!-- Path B — Full assessment -->
+          <article class="path" id="path-b" data-path="b">
+            <div class="path-head">
+              <span class="path-tag">Path B</span>
+              <span class="path-when">If you don't</span>
+            </div>
+            <h3 class="path-title">Complete the sustainability assessment</h3>
+            <p class="path-body">
+              Download The Corporate's Supplier Sustainability Assessment 2026,
+              complete it offline, and return the workbook by email by the
+              deadline of 30&nbsp;September&nbsp;2026.
+            </p>
+            <a
+              class="btn btn-primary"
+              href="assets/The_Corporate_Supplier_Questionnaire_2026.xlsx"
+              download
+            >
+              Download the assessment (.xlsx) ↓
+            </a>
+            <p class="path-return">
+              Return your completed workbook to
+              <a href="mailto:supplier.assessment@the-corporate.com">supplier.assessment@the-corporate.com</a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== TIMELINE =========================== -->
+    <section class="section section-timeline" aria-labelledby="timeline-title">
+      <div class="wrap">
+        <p class="section-eyebrow">What happens next</p>
+        <h2 id="timeline-title">The programme timeline</h2>
+
+        <ol class="timeline">
+          <li class="tl-step">
+            <span class="tl-phase">01</span>
+            <div class="tl-content">
+              <h3 class="tl-stage">Portal Launch</h3>
+              <p class="tl-when">April 2026</p>
+              <p class="tl-focus">
+                The programme opens to all 500+ Tier&nbsp;1 suppliers, and both
+                routes go live.
+              </p>
+            </div>
+          </li>
+          <li class="tl-step">
+            <span class="tl-phase">02</span>
+            <div class="tl-content">
+              <h3 class="tl-stage">Data Submission</h3>
+              <p class="tl-when">Deadline 30 September 2026</p>
+              <p class="tl-focus">
+                Share an EcoVadis scorecard or return the completed assessment. We
+                aim for 100% of Tier&nbsp;1 suppliers.
+              </p>
+            </div>
+          </li>
+          <li class="tl-step">
+            <span class="tl-phase">03</span>
+            <div class="tl-content">
+              <h3 class="tl-stage">Review &amp; Scoring</h3>
+              <p class="tl-when">Q4 2026</p>
+              <p class="tl-focus">
+                We review submissions, identify gaps, and bring the data together
+                for our reporting.
+              </p>
+            </div>
+          </li>
+          <li class="tl-step">
+            <span class="tl-phase">04</span>
+            <div class="tl-content">
+              <h3 class="tl-stage">Partnership Plans</h3>
+              <p class="tl-when">Q1 2027</p>
+              <p class="tl-focus">
+                We agree joint decarbonization and improvement plans with
+                prioritised suppliers.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- =========================== RESOURCES =========================== -->
+    <section class="section section-resources" aria-labelledby="resources-title">
+      <div class="wrap">
+        <p class="section-eyebrow">Resources</p>
+        <h2 id="resources-title">The programme toolkit</h2>
+
+        <div class="resource-row">
+          <a
+            class="resource"
+            href="assets/The_Corporate_Supplier_Code_of_Conduct_2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="resource-kind">PDF</span>
+            <span class="resource-title">Supplier Code of Conduct</span>
+            <span class="resource-desc">The standards we ask every supplier to meet.</span>
+          </a>
+
+          <a
+            class="resource"
+            href="assets/The_Corporate_Global_Environmental_Policy.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="resource-kind">PDF</span>
+            <span class="resource-title">Global Environmental Policy</span>
+            <span class="resource-desc">The commitments the programme delivers on.</span>
+          </a>
+
+          <div class="resource resource-contact">
+            <span class="resource-kind">Contact</span>
+            <span class="resource-title">Compliance &amp; EHS</span>
+            <span class="resource-desc">
+              Questions about the programme or the documents?
+              <a href="mailto:supplier.compliance@the-corporate.com">supplier.compliance@the-corporate.com</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="brand brand-footer">
+        <span class="monogram" aria-hidden="true">C</span>
+        <span class="brand-name">The Corporate</span>
+      </div>
+      <p class="footer-note">
+        The programme materials linked here are governed documents of The
+        Corporate, provided to Tier&nbsp;1 suppliers for the 2026 Supplier
+        Engagement Programme. Please treat them accordingly.
+      </p>
+      <p class="footer-meta">
+        Supplier Engagement Programme 2026 · Supplier Sustainability Portal
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

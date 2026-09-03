@@ -1,0 +1,10 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Netlify
+.netlify/
+
+# Node (not used, but guard against accidental installs)
+node_modules/
