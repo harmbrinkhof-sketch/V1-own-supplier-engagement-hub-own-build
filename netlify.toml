@@ -1,0 +1,19 @@
+# Netlify configuration — Supplier Sustainability Portal 2026
+# Tier 1 static site. No build step, no environment variables.
+# Only the public/ directory is published, so the confidential internal
+# source documents in docs/ and the repo root are never served.
+
+[build]
+  publish = "public"
+  # No build command: the site is plain HTML/CSS/JS.
+  command = ""
+
+# Baseline security headers. The page loads no external resources, so a
+# strict content-security-policy is safe and confirms no third-party calls.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'"
